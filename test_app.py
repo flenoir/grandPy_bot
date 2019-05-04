@@ -1,9 +1,23 @@
-from classes import Question
+from classes import Question, GoogleMapsSearch
+import pytest
 
-def test_empty_question():
-    new_question = Question("where is located openclassrooms ? ")
-    assert new_question.tokenize != None
+@pytest.fixture
+def variable():
+    input_question = "where is located openclassrooms ? "
+    new_question = Question(input_question)
+    return new_question
 
-def test_string_question():
-    new_question = Question("where is located openclassrooms ? ")
-    assert type(new_question.tokenize) is str
+
+def test_empty_question(variable):
+    assert variable.tokenize != None
+
+def test_string_question(variable):    
+    assert type(variable.tokenize) is str
+
+def test_tokenization_question(variable):
+    assert variable.tokenize  == "located openclassrooms ?"
+    
+
+def test_empty_result_google():
+    new_search = GoogleMapsSearch("search string")
+    assert new_search.make_search() != None
