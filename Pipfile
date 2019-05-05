@@ -9,6 +9,7 @@ verify_ssl = true
 nltk = "*"
 pytest = "*"
 googlemaps = "*"
+pymediawiki = "*"
 
 [requires]
 python_version = "3.6"
