@@ -1,8 +1,7 @@
 #! /usr/bin/env python
 # coding: utf-8
 
-from mediawiki import MediaWiki
-from classes import Question, GoogleMapsSearch
+from classes import Question, GoogleMapsSearch, MediaWikiSearch
 
 inputQuestion = input("Please enter your question : ")
 
@@ -17,15 +16,16 @@ search_result = new_search.makeSearch()
 
 print(search_result)
 
-# instanciation of Mediawiki search
-wikipedia = MediaWiki()
-wikipedia_result = wikipedia.geosearch(latitude=str(search_result[1]), longitude=str(search_result[2]))
-print(wikipedia_result[0])
-print(wikipedia_result)
+# instanciation of MediaWiki search
+new_MediaWiki_search = MediaWikiSearch()
+GeoSearch_result = new_MediaWiki_search.make_geosearch(search_result[1], search_result[2])
 
-print("He yes, i remember that, not very far there's a place called {}".format(wikipedia_result[0]))
+# wikipedia_result = mediaWikiSearch(search_result[1], search_result[2])
+print(GeoSearch_result)
 
-opensearch_result = wikipedia.opensearch(str(wikipedia_result[0]))
+print("He yes, i remember that, not very far there's a place called {}".format(GeoSearch_result[0]))
 
-print("In details, {}".format(opensearch_result[0][1]))
+# opensearch_result = wikipedia.opensearch(str(wikipedia_result[0]))
+
+# print("In details, {}".format(opensearch_result[0][1]))
 

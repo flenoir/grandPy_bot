@@ -4,6 +4,7 @@
 import nltk
 from nltk.corpus import stopwords
 import googlemaps
+from mediawiki import MediaWiki
 
 # nltk.download('stopwords')
 
@@ -27,6 +28,7 @@ class Question:
             if word not in en_stopwords:
                 array.append(word)
         
+        print (array)
         return ' '.join(array)
 
 
@@ -49,3 +51,13 @@ class GoogleMapsSearch:
         result_coordinates_lon = result['results'][0]['geometry']['location']['lng']
         return result_address, result_coordinates_lat, result_coordinates_lon
 
+
+class MediaWikiSearch:
+
+    def __init__(self):
+        pass
+
+    def make_geosearch(self, lat, lon):
+        wikipedia = MediaWiki()
+        wikipedia_result = wikipedia.geosearch(lat, lon)
+        return wikipedia_result
