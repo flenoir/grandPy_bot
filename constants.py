@@ -1,0 +1,1 @@
+other_words = ['located', 'address', 'grandpy', ',', '?']

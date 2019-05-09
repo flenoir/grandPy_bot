@@ -5,10 +5,12 @@ import nltk
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
+from constants import other_words
 
 # nltk.download('stopwords')
 
 en_stopwords = set(stopwords.words('english'))
+# other_words = ['located', 'address', 'grandpy', ',', '?']
 
 
 class Question:
@@ -22,14 +24,18 @@ class Question:
     @property
     def tokenize(self):
         mylist = list(self.question.split())
-        array = []
+        # array = []
 
-        for word in mylist:
-            if word not in en_stopwords:
-                array.append(word)
+        # for word in mylist:
+        #     if word not in en_stopwords:
+        #         array.append(word)
+
+        array = [word for word in mylist if word not in en_stopwords]
+
+        array2 = [w for w in array if w not in other_words]
         
-        print (array)
-        return ' '.join(array)
+        print(array2)
+        return ' '.join(array2)
 
 
 class GoogleMapsSearch:

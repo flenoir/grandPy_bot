@@ -18,10 +18,10 @@ print(search_result)
 
 # instanciation of MediaWiki search
 new_MediaWiki_search = MediaWikiSearch()
-GeoSearch_result = new_MediaWiki_search.make_geosearch(search_result[1], search_result[2])
+GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
 
 # wikipedia_result = mediaWikiSearch(search_result[1], search_result[2])
-print(GeoSearch_result)
+print(GeoSearch_result[0])
 
 print("He yes, i remember that, not very far there's a place called {}".format(GeoSearch_result[0]))
 
