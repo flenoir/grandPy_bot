@@ -22,7 +22,7 @@ def test_string_question(variable):
 
 
 def test_tokenization_question(variable):
-    assert variable.tokenize == "located openclassrooms ?"
+    assert variable.tokenize == "openclassrooms"
     
 
 def test_empty_result_google():
@@ -30,31 +30,18 @@ def test_empty_result_google():
     assert new_search.makeSearch() is not None
 
 
-# def test_googlemaps_http_return(monkeypatch):
-#     results = '260 Chemin des Mendrous, 34170 Castelnau-le-Lez, France'
+def test_googlemaps_http_return(monkeypatch):
+    results = '260 Chemin des Mendrous, 34170 Castelnau-le-Lez, France'
 
-#     def mockreturn(request):
-#         print('bonjour1')
-#         return results
+    def mockreturn(self):        
+        return results
 
-#     monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
-#     new_search = GoogleMapsSearch("le mazet de grand mémé ? ")
-#     res = new_search.makeSearch()
-#     assert res[0] == results
+    monkeypatch.setattr(GoogleMapsSearch, 'makeSearch', mockreturn)
+    new_search = GoogleMapsSearch("le mazet de grand mémé ? ")
+    res = new_search.makeSearch()
+    assert res == results
     
 
-# def test_mediawiki_geosearch_http_return(monkeypatch):
-#     results = 'Élysée Palace'
-
-#     def mockreturn(request):
-#         print('bonjour2')
-#         return results
-
-#     monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)    
-#     wikipedia = MediaWiki()
-#     wikipedia_results = wikipedia.geosearch(latitude=48.8704156, longitude=2.3167539)
-#     assert wikipedia_results[0] == results
-    
 def test_mediaWikiSearch(monkeypatch):
     results = 'Élysée Palace'
 

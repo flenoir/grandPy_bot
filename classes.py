@@ -5,7 +5,7 @@ import nltk
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
-from constants import other_words
+from constants import other_words, googleKey
 
 # nltk.download('stopwords')
 
@@ -43,14 +43,12 @@ class GoogleMapsSearch:
     get address and coordintates from tokenized question
     """
 
-    KEY = 'AIzaSyCnu18GjJrqGyvQ3DMECincwFAslFeGTu4'
-
     def __init__(self, search):
         self.search = search
       
     
     def makeSearch(self):
-        gmaps = googlemaps.Client(key=GoogleMapsSearch.KEY)
+        gmaps = googlemaps.Client(key=googleKey)
         result = gmaps.places(str(self.search))
         result_address = result['results'][0]['formatted_address']
         result_coordinates_lat = result['results'][0]['geometry']['location']['lat']
