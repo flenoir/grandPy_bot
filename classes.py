@@ -5,8 +5,8 @@ import nltk
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
-from constants import other_words
-from gpbapp.views import app
+from constants import other_words, googleKey
+# from gpbapp.views import app (needed to use config.app to import google key from config.py, not working for now)
 
 
 # nltk.download('stopwords')
@@ -50,7 +50,7 @@ class GoogleMapsSearch:
       
     
     def makeSearch(self):
-        gmaps = googlemaps.Client(key=app.config['GOOGLE_KEY'])
+        gmaps = googlemaps.Client(key=googleKey)
         result = gmaps.places(str(self.search))
         result_address = result['results'][0]['formatted_address']
         result_coordinates_lat = result['results'][0]['geometry']['location']['lat']

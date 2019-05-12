@@ -3,8 +3,6 @@
 
 from classes import Question, GoogleMapsSearch, MediaWikiSearch
 import pytest
-# import urllib.request
-# from mediawiki import MediaWiki
 
 @pytest.fixture
 def variable():
