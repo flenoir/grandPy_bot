@@ -50,11 +50,16 @@ class GoogleMapsSearch:
     
     def makeSearch(self):
         gmaps = googlemaps.Client(key=googleKey)
-        result = gmaps.places(str(self.search))
-        result_address = result['results'][0]['formatted_address']
-        result_coordinates_lat = result['results'][0]['geometry']['location']['lat']
-        result_coordinates_lon = result['results'][0]['geometry']['location']['lng']
-        return result_address, result_coordinates_lat, result_coordinates_lon
+        try:
+            result = gmaps.places(str(self.search))
+            result_address = result['results'][0]['formatted_address']
+            result_coordinates_lat = result['results'][0]['geometry']['location']['lat']
+            result_coordinates_lon = result['results'][0]['geometry']['location']['lng']
+            return result_address, result_coordinates_lat, result_coordinates_lon
+        except IndexError:
+            return "i'm sorry, i don't have a story about this question or maybe you mispelled it"
+
+        
 
 
 class MediaWikiSearch:
@@ -66,3 +71,16 @@ class MediaWikiSearch:
         wikipedia = MediaWiki()
         wikipedia_result = wikipedia.geosearch(lat, lon)
         return wikipedia_result
+
+
+class Big_search:
+
+    def __init__(self, question):
+        self.question = question
+    
+    @property
+    def search(self):
+        new_question = Question(self.question)
+        new_googlemaps_search = GoogleMapsSearch(new_question.tokenize)
+        return new_googlemaps_search.makeSearch()
+    
