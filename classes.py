@@ -12,7 +12,6 @@ from constants import other_words, googleKey
 # nltk.download('stopwords')
 
 en_stopwords = set(stopwords.words('english'))
-# other_words = ['located', 'address', 'grandpy', ',', '?']
 
 
 class Question:
