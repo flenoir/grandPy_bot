@@ -14,31 +14,6 @@ from constants import other_words, googleKey
 en_stopwords = set(stopwords.words('english'))
 
 
-class Question:
-    """
-    initiate and tokenize question
-    """
-
-    def __init__(self, question):
-        self.question = question
-
-    @property
-    def tokenize(self):
-        mylist = list(self.question.split())
-        # array = []
-
-        # for word in mylist:
-        #     if word not in en_stopwords:
-        #         array.append(word)
-
-        array = [word for word in mylist if word not in en_stopwords]
-
-        array2 = [w for w in array if w not in other_words]
-        
-        print(array2)
-        return ' '.join(array2)
-
-
 class GoogleMapsSearch:
     """
     get address and coordintates from tokenized question
@@ -66,3 +41,34 @@ class MediaWikiSearch:
         wikipedia = MediaWiki()
         wikipedia_result = wikipedia.geosearch(lat, lon)
         return wikipedia_result
+
+
+class Question:
+    """
+    initiate and tokenize question
+    """
+
+    def __init__(self, question):
+        self.question = question
+
+    @classmethod   
+    def google_request(self, v):
+        # instanciation of Google maps search from question
+        new_search = GoogleMapsSearch(v)
+        search_result = new_search.makeSearch()
+        return search_result
+        
+
+    @property
+    def tokenize(self):
+        mylist = list(self.question.split())
+
+        stopword_array = [word for word in mylist if word not in en_stopwords]
+        other_words_array = [w for w in stopword_array if w not in other_words]
+        
+        joined_array = ' '.join(other_words_array)
+        google_search = self.google_request(joined_array)        
+        return google_search
+
+  
+
