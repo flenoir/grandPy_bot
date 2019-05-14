@@ -28,4 +28,3 @@ print("He yes, i remember that, not very far there's a place called {}".format(G
 # opensearch_result = wikipedia.opensearch(str(wikipedia_result[0]))
 
 # print("In details, {}".format(opensearch_result[0][1]))
-

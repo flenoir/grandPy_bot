@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # coding: utf-8
 
-import nltk
+# import nltk
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
@@ -34,20 +34,18 @@ class Question:
         array = [word for word in mylist if word not in en_stopwords]
 
         array2 = [w for w in array if w not in other_words]
-        
+
         print(array2)
         return ' '.join(array2)
 
 
 class GoogleMapsSearch:
-    """
-    get address and coordintates from tokenized question
-    """
+    """ get address and coordintates from tokenized question """
 
     def __init__(self, search):
         self.search = search
-      
-    
+
+
     def makeSearch(self):
         gmaps = googlemaps.Client(key=googleKey)
         try:
@@ -58,8 +56,6 @@ class GoogleMapsSearch:
             return result_address, result_coordinates_lat, result_coordinates_lon
         except IndexError:
             return "i'm sorry, i don't have a story about this question or maybe you mispelled it"
-
-        
 
 
 class MediaWikiSearch:
@@ -82,5 +78,6 @@ class Big_search:
     def search(self):
         new_question = Question(self.question)
         new_googlemaps_search = GoogleMapsSearch(new_question.tokenize)
-        return new_googlemaps_search.makeSearch()
+        # print(new_googlemaps_search.makeSearch()[1])
+        return new_googlemaps_search.makeSearch(), "Ho yes, {} is located at {}".format(new_question.tokenize.capitalize(), new_googlemaps_search.makeSearch()[0])
     
