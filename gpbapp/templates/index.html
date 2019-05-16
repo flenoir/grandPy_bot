@@ -7,7 +7,7 @@
       <!-- <img class="img-fluid mb-5 d-block mx-auto" src="/static/img/profile.png" alt=""> -->
       <!-- <h2 class="text-uppercase mb-0">GrandPy Bot</h2> -->
       <!-- <hr class="star-light"> -->
-      <form method=POST>
+      <form>
         <div class="form-row align-items-center">
           <div class="col-10">
             <label class="sr-only" for="inlineFormInput">Name</label>
@@ -29,15 +29,15 @@
             <img class="img-fluid mb-5 d-block mx-auto" src="/static/img/robot.png" alt="">
           </div>
           <div class="col-lg-4 mr-auto">
-            <p class="lead">{{ res }}</p>
+            <p class="lead" id="answer">{{ res }}</p>
           </div>
         </div>
-        <!-- <div class="text-center mt-4">
+        <div class="text-center mt-4" id="answer2">
           <a class="btn btn-xl btn-outline-light" href="#">
             <i class="fas fa-download mr-2"></i>
             Download Now!
           </a>
-        </div> -->
+        </div>
       </div>
     </section>
 
