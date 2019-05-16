@@ -25,18 +25,13 @@ class Question:
     @property
     def tokenize(self):
         mylist = list(self.question.split())
-        # array = []
 
-        # for word in mylist:
-        #     if word not in en_stopwords:
-        #         array.append(word)
+        stopwords_array = [word for word in mylist if word not in en_stopwords]
 
-        array = [word for word in mylist if word not in en_stopwords]
+        other_words_array = [w for w in stopwords_array if w not in other_words]
 
-        array2 = [w for w in array if w not in other_words]
-
-        print(array2)
-        return ' '.join(array2)
+        print(other_words_array)
+        return ' '.join(other_words_array)
 
 
 class GoogleMapsSearch:
@@ -63,10 +58,18 @@ class MediaWikiSearch:
     def __init__(self):
         pass
 
+    def make_opensearch(self, data):
+        wikipedia = MediaWiki()
+        wikipedia_opensearch_result = wikipedia.opensearch(str(data))
+        return wikipedia_opensearch_result
+
     def make_geosearch(self, lat, lon):
         wikipedia = MediaWiki()
         wikipedia_result = wikipedia.geosearch(lat, lon)
-        return wikipedia_result
+        opensearch_result = self.make_opensearch(wikipedia_result[0])
+        return opensearch_result
+
+    
 
 
 class Big_search:
@@ -77,7 +80,12 @@ class Big_search:
     @property
     def search(self):
         new_question = Question(self.question)
+        # instanciation of Google_search
         new_googlemaps_search = GoogleMapsSearch(new_question.tokenize)
-        # print(new_googlemaps_search.makeSearch()[1])
-        return new_googlemaps_search.makeSearch(), "Ho yes, {} is located at {}".format(new_question.tokenize.capitalize(), new_googlemaps_search.makeSearch()[0])
+        search_result = new_googlemaps_search.makeSearch()
+        # instanciation of MediaWiki search
+        new_MediaWiki_search = MediaWikiSearch()
+        GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
+
+        return new_googlemaps_search.makeSearch(), "Ho yes, {} is located at {}. This is close to {}".format(new_question.tokenize.capitalize(), new_googlemaps_search.makeSearch()[0], GeoSearch_result[0][1])
     
