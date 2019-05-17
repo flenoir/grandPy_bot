@@ -76,16 +76,25 @@ class Big_search:
 
     def __init__(self, question):
         self.question = question
+        self.result_object = {}
     
     @property
     def search(self):
         new_question = Question(self.question)
+        self.result_object['question'] = new_question.tokenize
+        
         # instanciation of Google_search
         new_googlemaps_search = GoogleMapsSearch(new_question.tokenize)
         search_result = new_googlemaps_search.makeSearch()
+        self.result_object['google_search_site'] = search_result[0]
+        self.result_object['google_search_latitude'] = search_result[1]
+        self.result_object['google_search_longitude'] = search_result[2]
+        
+
         # instanciation of MediaWiki search
         new_MediaWiki_search = MediaWikiSearch()
         GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
-
+        self.result_object['wikipedia_result'] = GeoSearch_result[0][1]
+        
         return new_googlemaps_search.makeSearch(), "Ho yes, {} is located at {}. This is close to {}".format(new_question.tokenize.capitalize(), new_googlemaps_search.makeSearch()[0], GeoSearch_result[0][1])
     

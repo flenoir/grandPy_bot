@@ -1,7 +1,7 @@
 $(document).ready(function(){
     
     $('form').on('submit', function(event) {
-        
+        // when clicked, we get value from form and send it as value in object data
         $.ajax({
             url : '/process',
             data : {
@@ -12,6 +12,7 @@ $(document).ready(function(){
             beforeSend: function(){
                 $('#spinner').show();
             },
+            // on success, we push result from jsonify method form views.py on #answer div and show it
             success: function(data){
                 $('#spinner').hide()
                 if (data.error){
