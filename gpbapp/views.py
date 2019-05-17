@@ -19,7 +19,7 @@ def process():
     new_big_search = Big_search(result) 
 
     if result is not None:
-        return jsonify({'answer' : new_big_search.search[1]})
+        return jsonify({'answer1' : new_big_search.search[0], 'answer2' : new_big_search.search[1]})
 
     return jsonify({'error' : "you didn't enter a question"})
 

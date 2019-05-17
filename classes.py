@@ -15,9 +15,7 @@ en_stopwords = set(stopwords.words('english'))
 
 
 class Question:
-    """
-    initiate and tokenize question
-    """
+    """ initiate and tokenize question """
 
     def __init__(self, question):
         self.question = question
@@ -35,7 +33,7 @@ class Question:
 
 
 class GoogleMapsSearch:
-    """ get address and coordintates from tokenized question """
+    """ get address and coordinates from tokenized question """
 
     def __init__(self, search):
         self.search = search
@@ -54,6 +52,7 @@ class GoogleMapsSearch:
 
 
 class MediaWikiSearch:
+    """ get informatiosn from MediaWiki """
 
     def __init__(self):
         pass
@@ -73,6 +72,7 @@ class MediaWikiSearch:
 
 
 class Big_search:
+    """ make entire search"""
 
     def __init__(self, question):
         self.question = question
@@ -96,5 +96,6 @@ class Big_search:
         GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
         self.result_object['wikipedia_result'] = GeoSearch_result[0][1]
         
-        return new_googlemaps_search.makeSearch(), "Ho yes, {} is located at {}. This is close to {}".format(new_question.tokenize.capitalize(), new_googlemaps_search.makeSearch()[0], GeoSearch_result[0][1])
+        return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result'])
+
     

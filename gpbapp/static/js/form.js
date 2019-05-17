@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+    var delay = 6000;
     
     $('form').on('submit', function(event) {
         // when clicked, we get value from form and send it as value in object data
@@ -16,10 +18,13 @@ $(document).ready(function(){
             success: function(data){
                 $('#spinner').hide()
                 if (data.error){
-                    $('#answer').text(data.error).show()
+                    $('#answer').text(data.error).show();
                 }
                 else {
-                    $('#answer').text(data.answer).show()
+                    $('#answer').text(data.answer1).show()
+                    setTimeout(function(){
+                        $('#answer').text(data.answer2).show()
+                    }, delay);
                 }
             }
         })
