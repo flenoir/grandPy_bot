@@ -50,6 +50,10 @@ class GoogleMapsSearch:
         except IndexError:
             return "i'm sorry, i don't have a story about this question or maybe you mispelled it"
 
+    # def create_map(self):
+    #     gmaps = googlemaps.Client(key=googleKey)
+    #     res_map = gmaps.
+
 
 class MediaWikiSearch:
     """ get informatiosn from MediaWiki """
