@@ -1,14 +1,12 @@
 #! /usr/bin/env python
 # coding: utf-8
 
-# import nltk
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
 from constants import other_words
 import os
-# from gpbapp.views import app (needed to use config.app to import google key from config.py, not working for now)
-
+# import nltk
 
 # nltk.download('stopwords')
 

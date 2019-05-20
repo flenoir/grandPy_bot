@@ -12,8 +12,7 @@ $(document).ready(function(){
             },
             type : 'POST',
             beforeSend: function(){
-                $('#spinner').show();
-                // $('#header').hide();
+                $('#spinner').show();                
             },
             // on success, we push result from jsonify method form views.py on #answer div and show it
             success: function(data){
