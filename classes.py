@@ -5,7 +5,8 @@
 from nltk.corpus import stopwords
 import googlemaps
 from mediawiki import MediaWiki
-from constants import other_words, googleKey
+from constants import other_words
+import os
 # from gpbapp.views import app (needed to use config.app to import google key from config.py, not working for now)
 
 
@@ -40,7 +41,7 @@ class GoogleMapsSearch:
 
 
     def makeSearch(self):
-        gmaps = googlemaps.Client(key=googleKey)
+        gmaps = googlemaps.Client(key=os.environ.get('google_key'))
         try:
             result = gmaps.places(str(self.search))
             result_address = result['results'][0]['formatted_address']
@@ -102,7 +103,7 @@ class Big_search:
         self.result_object['wikipedia_result'] = GeoSearch_result
 
         # creation of iframe with latitude and longitude
-        map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key=AIzaSyCnu18GjJrqGyvQ3DMECincwFAslFeGTu4" width="450" height="450" frameborder="0"></iframe>'.format(search_result[1], search_result[2])
+        map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key={}" width="450" height="450" frameborder="0"></iframe>'.format(search_result[1], search_result[2], os.environ.get('google_key'))
         
         return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result']), map_iframe
 
