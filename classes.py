@@ -47,9 +47,9 @@ class GoogleMapsSearch:
             result_address = result['results'][0]['formatted_address']
             result_coordinates_lat = result['results'][0]['geometry']['location']['lat']
             result_coordinates_lon = result['results'][0]['geometry']['location']['lng']
-            return result_address, result_coordinates_lat, result_coordinates_lon
+            return result_address, float(result_coordinates_lat), float(result_coordinates_lon)
         except IndexError:
-            return "i'm sorry, i don't have a story about this question or maybe you mispelled it"
+            return "i'm sorry, i don't have a story about this question or maybe you mispipenpelled it"
 
 
 class MediaWikiSearch:

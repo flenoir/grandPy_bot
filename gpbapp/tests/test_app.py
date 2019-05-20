@@ -2,6 +2,7 @@
 # coding: utf-8
 
 from classes import Question, GoogleMapsSearch, MediaWikiSearch
+from mediawiki import MediaWiki
 import pytest
 
 @pytest.fixture
@@ -40,13 +41,26 @@ def test_googlemaps_http_return(monkeypatch):
     assert res == results
     
 
-def test_mediaWikiSearch(monkeypatch):
+def test_mediaWiki_openSearch(monkeypatch):
+    wiki_res = [('Château de Flaugergues', 'The Château de Flaugergues is a country house near Montpellier, Occitanie, southern France. It is one of many folies erected by wealthy merchants on the outskirts of the city.', 'https://en.wikipedia.org/wiki/Ch%C3%A2teau_de_Flaugergues'), ('Talk:Château de Flaugergues', '', 'https://en.wikipedia.org/wiki/Talk:Ch%C3%A2teau_de_Flaugergues')]
+
+    def mockreturn(self, data):
+        return wiki_res
+
+    monkeypatch.setattr(MediaWikiSearch,'make_opensearch', mockreturn)    
+    wikipedia = MediaWikiSearch()
+    wikipedia_opensearch_result = wikipedia.make_opensearch(str('videomenthe'))
+
+    assert wikipedia_opensearch_result == wiki_res
+
+
+def test_mediaWiki_geosearch(monkeypatch):
     results = 'Élysée Palace'
 
     def mockreturn(self, lat, lon):
         return results
 
-    monkeypatch.setattr('mediawiki.MediaWiki.geosearch', mockreturn)    
+    monkeypatch.setattr(MediaWikiSearch,'make_geosearch', mockreturn)    
     new_MediaWiki_search = MediaWikiSearch()
     GeoSearch_result = new_MediaWiki_search.make_geosearch(48.8704156, 2.3167539)
 
