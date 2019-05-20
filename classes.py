@@ -65,7 +65,12 @@ class MediaWikiSearch:
     def make_geosearch(self, lat, lon):
         wikipedia = MediaWiki()
         wikipedia_result = wikipedia.geosearch(lat, lon)
-        opensearch_result = self.make_opensearch(wikipedia_result[0])
+        try:
+            opensearch_result = self.make_opensearch(wikipedia_result[0])
+            return opensearch_result[0][1]
+        except IndexError:
+            return "this is a very nice place but i do not have any story about this place."
+        
         return opensearch_result
 
     
@@ -94,8 +99,11 @@ class Big_search:
         # instanciation of MediaWiki search
         new_MediaWiki_search = MediaWikiSearch()
         GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
-        self.result_object['wikipedia_result'] = GeoSearch_result[0][1]
+        self.result_object['wikipedia_result'] = GeoSearch_result
+
+        # creation of iframe with latitude and longitude
+        map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key=AIzaSyCnu18GjJrqGyvQ3DMECincwFAslFeGTu4" width="450" height="450" frameborder="0"></iframe>'.format(search_result[1], search_result[2])
         
-        return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result'])
+        return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result']), map_iframe
 
     

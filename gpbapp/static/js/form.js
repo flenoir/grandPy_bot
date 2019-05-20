@@ -13,17 +13,19 @@ $(document).ready(function(){
             type : 'POST',
             beforeSend: function(){
                 $('#spinner').show();
+                // $('#header').hide();
             },
             // on success, we push result from jsonify method form views.py on #answer div and show it
             success: function(data){
-                $('#spinner').hide()
+                $('#spinner').hide()                
                 if (data.error){
                     $('#answer').text(data.error).show();
                 }
                 else {
                     $('#answer').text(data.answer1).show()
+                    $('#map').html(data.map).show()
                     setTimeout(function(){
-                        $('#answer').text(data.answer2).show()
+                        $('#answer').text(data.answer2).show();
                     }, delay);
                 }
             }
