@@ -41,16 +41,17 @@ class GoogleMapsSearch:
     def makeSearch(self):
         gmaps = googlemaps.Client(key=os.environ.get('google_key'))
         result = gmaps.places(str(self.search))
+        # print(result['results'])
         if len(result['results']):
             result_address = result['results'][0]['formatted_address']
             result_coordinates_lat = result['results'][0]['geometry']['location']['lat']
             result_coordinates_lon = result['results'][0]['geometry']['location']['lng']
-            return True, result_address, result_coordinates_lat, result_coordinates_lon
+            return result_address, result_coordinates_lat, result_coordinates_lon
         else:
             return False
 
 class MediaWikiSearch:
-    """ get informatiosn from MediaWiki """
+    """ get informations from MediaWiki """
 
     def __init__(self):
         pass
@@ -93,9 +94,9 @@ class Big_search:
         # check the result of the google search
         if search_result:
 
-            self.result_object['google_search_site'] = search_result[1]
-            self.result_object['google_search_latitude'] = search_result[2]
-            self.result_object['google_search_longitude'] = search_result[3]
+            self.result_object['google_search_site'] = search_result[0]
+            self.result_object['google_search_latitude'] = search_result[1]
+            self.result_object['google_search_longitude'] = search_result[2]
         
             # instanciation of MediaWiki search
             new_MediaWiki_search = MediaWikiSearch()
@@ -103,9 +104,9 @@ class Big_search:
             self.result_object['wikipedia_result'] = GeoSearch_result
 
             # creation of iframe with latitude and longitude
-            map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key={}" width="450" height="450" frameborder="0"></iframe>'.format(search_result[1], search_result[2], os.environ.get('google_key'))
+            map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key={}" width="400" height="400" frameborder="0"></iframe>'.format(search_result[1], search_result[2], os.environ.get('google_key'))
             
             return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result']), map_iframe
 
         else:
-            return "Ho I'm sorry, your question regarding {} cannot be replyed properly".format(self.result_object['question'].capitalize()), "", ""
+            return "Ho I'm sorry, I have no idea of what {} is !".format(self.result_object['question'].capitalize()), "", ""

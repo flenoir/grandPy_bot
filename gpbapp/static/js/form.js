@@ -12,11 +12,12 @@ $(document).ready(function(){
             },
             type : 'POST',
             beforeSend: function(){
-                $('#spinner').show();                
+                $('#spinner').show();
+                $('#inlineFormInput').val("");              
             },
             // on success, we push result from jsonify method form views.py on #answer div and show it
             success: function(data){
-                $('#spinner').hide()                
+                $('#spinner').hide()                           
                 if (data.error){
                     $('#answer').text(data.error).show();
                 }
