@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var delay = 6000;
+    var delay = 8000;
     
     $('form').on('submit', function(event) {
         // when clicked, we get value from form and send it as value in object data

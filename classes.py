@@ -48,7 +48,7 @@ class GoogleMapsSearch:
             return result_address, float(result_coordinates_lat), float(result_coordinates_lon)
         except IndexError:
             return "i'm sorry, i don't have a story about this question or maybe you mispipenpelled it"
-
+        # if len(result.results)
 
 class MediaWikiSearch:
     """ get informatiosn from MediaWiki """
