@@ -6,9 +6,9 @@ import googlemaps
 from mediawiki import MediaWiki
 from constants import other_words
 import os
-# import nltk
+import nltk
 
-# nltk.download('stopwords')
+nltk.download('stopwords')
 
 en_stopwords = set(stopwords.words('english'))
 
