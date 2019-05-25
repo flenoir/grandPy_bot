@@ -6,9 +6,9 @@ import googlemaps
 from mediawiki import MediaWiki
 from constants import other_words
 import os
-import nltk
+# import nltk
 
-nltk.download('stopwords')
+# nltk.download('stopwords')
 
 en_stopwords = set(stopwords.words('english'))
 
@@ -66,7 +66,7 @@ class MediaWikiSearch:
         wikipedia_result = wikipedia.geosearch(lat, lon)
         try:
             opensearch_result = self.make_opensearch(wikipedia_result[0])
-            return opensearch_result[0][1]
+            return opensearch_result[0][1], wikipedia_result[0]
         except IndexError:
             return "this is a very nice place but i do not have any story about this place."
         
@@ -100,13 +100,14 @@ class Big_search:
         
             # instanciation of MediaWiki search
             new_MediaWiki_search = MediaWikiSearch()
-            GeoSearch_result = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
+            GeoSearch_result, Wikipedia_site = new_MediaWiki_search.make_geosearch(str(search_result[1]), str(search_result[2]))
             self.result_object['wikipedia_result'] = GeoSearch_result
-
+            self.result_object['wikipedia_site'] = Wikipedia_site
+            print(self.result_object)
             # creation of iframe with latitude and longitude
-            map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key={}" width="400" height="400" frameborder="0"></iframe>'.format(search_result[1], search_result[2], os.environ.get('google_key'))
+            # map_iframe = '<iframe src="http://www.google.com/maps/embed/v1/place?q={},{}&zoom=12&key={}" width="400" height="400" frameborder="0"></iframe>'.format(search_result[1], search_result[2], os.environ.get('google_key'))
             
-            return "Ho yes, {} is located {}.".format(self.result_object['question'].capitalize(), self.result_object['google_search_site']), "I can also say that {}".format(self.result_object['wikipedia_result']), self.result_object['google_search_latitude'], self.result_object['google_search_longitude'] 
+            return "Ho yes, {} is located {}. This is close to {}".format(self.result_object['question'].capitalize(), self.result_object['google_search_site'], self.result_object['wikipedia_site']), "I can also say that {}".format(self.result_object['wikipedia_result']), self.result_object['google_search_latitude'], self.result_object['google_search_longitude'] 
 
         else:
             return "Ho I'm sorry, I have no idea of what {} is !".format(self.result_object['question'].capitalize()), "", ""
